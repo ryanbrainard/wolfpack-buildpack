@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-WOLFPACK_SSH_KEY="$HOME/.ssh/heroku_wolfpack_id_rsa"
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+WOLFPACK_SSH_KEY="${BUILD_DIR}/.ssh/heroku_wolfpack_id_rsa"
 
 mkdir -p $(dirname ${WOLFPACK_SSH_KEY})
 rm -f ${WOLFPACK_SSH_KEY}
