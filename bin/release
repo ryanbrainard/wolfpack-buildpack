@@ -3,7 +3,7 @@
 
 BUILD_DIR=$1
 
-$($BUILD_DIR/.buildpacks/ruby/bin/release)
+$($BUILD_DIR/.buildpacks/ruby/bin/release $BUILD_DIR)
 
 cat <<EOF
 ---
