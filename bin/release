@@ -1,13 +1,6 @@
 #!/usr/bin/env ruby
 # bin/release <build-dir>
 
-$:.unshift "#{ARGV[0]}/.buildpacks/ruby/lib"
-require "language_pack"
-
-if pack = LanguagePack.detect(ARGV[0], ARGV[1])
-  pack.release
-end
-
 puts <<EOF
 ---
 config_vars:
@@ -18,3 +11,10 @@ config_vars:
 default_process_types:
   tests: bundle exec wolfpack run -h "${WOLFPACK_HOST}" -u "${WOLFPACK_USERNAME}" -p "${WOLFPACK_PASSWORD}" --ssh-key "${WOLFPACK_SSH_KEY}" -r ${WOLFPACK_TEST_DIR} ${WOLFPACK_TESTS_TO_RUN}
 EOF
+
+$:.unshift "#{ARGV[0]}/.buildpacks/ruby/lib"
+require "language_pack"
+
+if pack = LanguagePack.detect(ARGV[0], ARGV[1])
+  puts pack.release
+end
