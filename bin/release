@@ -1,13 +1,18 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ruby
 # bin/release <build-dir>
 
-BUILD_DIR=$1
+$:.unshift "#{ARGV[0]}/.buildpacks/ruby/lib"
+require "language_pack"
 
-cat <<EOF
+if pack = LanguagePack.detect(ARGV[0], ARGV[1])
+  puts pack.release
+end
+
+puts <<EOF
 ---
 config_vars:
   WOLFPACK_HOST:     heroku.com
-  WOLFPACK_SSH_KEY:  ${BUILD_DIR}/.ssh/wolfpack_id_rsa
+  WOLFPACK_SSH_KEY:  /app/.ssh/wolfpack_id_rsa
   WOLFPACK_TEST_DIR: lib/wolfpack/heroku/tests
 
 default_process_types:

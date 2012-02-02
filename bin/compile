@@ -9,7 +9,7 @@ mkdir -p $(dirname ${wolfpack_ssh_key})
 rm -f ${wolfpack_ssh_key}
 ssh-keygen -t rsa -N "" -f ${wolfpack_ssh_key}
 
-ruby_buildpack_dir=${CACHE_DIR}/.buildpacks/ruby
+ruby_buildpack_dir=${BUILD_DIR}/.buildpacks/ruby
 rm -rf ${ruby_buildpack_dir}
 mkdir -p ${ruby_buildpack_dir}
 git clone https://github.com/heroku/heroku-buildpack-ruby ${ruby_buildpack_dir}
