@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# bin/release <build-dir>
+
+cat <<EOF
+---
+config_vars:
+  WOLFPACK_HOST:     heroku.com
+  WOLFPACK_SSH_KEY:  $HOME/.ssh/heroku_wolfpack_id_rsa
+  WOLFPACK_TEST_DIR: lib/wolfpack/heroku/tests
+
+default_process_types:
+  tests: bundle exec wolfpack run -h "${WOLFPACK_HOST}" -u "${WOLFPACK_USERNAME}" -p "${WOLFPACK_PASSWORD}" --ssh-key "${WOLFPACK_SSH_KEY}" -r ${WOLFPACK_TEST_DIR} ${WOLFPACK_TESTS_TO_RUN}
+EOF
