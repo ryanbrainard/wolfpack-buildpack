@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [ -t 0 ]; then
+  echo "Usage: Pipe in the output of a remote run to report the correct exit code. This is helpful when running tests on a Heroku dyno so the correct exit code is returned to the local shell."
+  echo "Example: heroku run tests [args] | report"
+  exit 1;
+fi
+
+# assume failure until we find an empty list_failed
+exitCode=1
+IFS=""
+while read line; do
+  echo "${line}"
+  echo "${line}" | grep -q "list_failed=\"\"" && exitCode=0
+done
+exit ${exitCode}
