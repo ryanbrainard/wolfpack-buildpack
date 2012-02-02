@@ -1,7 +1,11 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env bash
 # bin/release <build-dir>
 
-puts <<EOF
+BUILD_DIR=$1
+
+$($BUILD_DIR/.buildpacks/ruby/bin/release)
+
+cat <<EOF
 ---
 config_vars:
   WOLFPACK_HOST:     heroku.com
@@ -11,10 +15,3 @@ config_vars:
 default_process_types:
   tests: bundle exec wolfpack run -h "${WOLFPACK_HOST}" -u "${WOLFPACK_USERNAME}" -p "${WOLFPACK_PASSWORD}" --ssh-key "${WOLFPACK_SSH_KEY}" -r ${WOLFPACK_TEST_DIR} ${WOLFPACK_TESTS_TO_RUN}
 EOF
-
-$:.unshift "#{ARGV[0]}/.buildpacks/ruby/lib"
-require "language_pack"
-
-if pack = LanguagePack.detect(ARGV[0], ARGV[1])
-  puts pack.release
-end
