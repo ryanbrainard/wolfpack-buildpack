@@ -14,4 +14,4 @@ rm -rf ${ruby_buildpack_dir}
 mkdir -p ${ruby_buildpack_dir}
 git clone https://github.com/heroku/heroku-buildpack-ruby ${ruby_buildpack_dir}
 chmod +x ${ruby_buildpack_dir}/bin/compile
-exec $dir/bin/compile ${BUILD_DIR} ${CACHE_DIR}
+exec ${ruby_buildpack_dir}/bin/compile ${BUILD_DIR} ${CACHE_DIR}
