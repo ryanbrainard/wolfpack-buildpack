@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 # bin/release <build-dir>
 
+BUILD_DIR=$1
+
 cat <<EOF
 ---
 config_vars:
   WOLFPACK_HOST:     heroku.com
-  WOLFPACK_SSH_KEY:  $HOME/.ssh/heroku_wolfpack_id_rsa
+  WOLFPACK_SSH_KEY:  ${BUILD_DIR}/.ssh/wolfpack_id_rsa
   WOLFPACK_TEST_DIR: lib/wolfpack/heroku/tests
 
 default_process_types:

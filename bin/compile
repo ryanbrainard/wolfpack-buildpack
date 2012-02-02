@@ -3,8 +3,15 @@
 BUILD_DIR=$1
 CACHE_DIR=$2
 
-WOLFPACK_SSH_KEY="${BUILD_DIR}/.ssh/heroku_wolfpack_id_rsa"
+wolfpack_ssh_key="${BUILD_DIR}/.ssh/wolfpack_id_rsa"
 
-mkdir -p $(dirname ${WOLFPACK_SSH_KEY})
-rm -f ${WOLFPACK_SSH_KEY}
-ssh-keygen -t rsa -N "" -f ${WOLFPACK_SSH_KEY}
+mkdir -p $(dirname ${wolfpack_ssh_key})
+rm -f ${wolfpack_ssh_key}
+ssh-keygen -t rsa -N "" -f ${wolfpack_ssh_key}
+
+ruby_buildpack_dir=${CACHE_DIR}/.buildpacks/ruby
+rm -rf ${ruby_buildpack_dir}
+mkdir -p ${ruby_buildpack_dir}
+git clone https://github.com/heroku/heroku-buildpack-ruby ${ruby_buildpack_dir}
+chmod +x ${ruby_buildpack_dir}/bin/compile
+exec $dir/bin/compile ${BUILD_DIR} ${CACHE_DIR}
